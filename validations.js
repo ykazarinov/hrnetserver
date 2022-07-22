@@ -9,13 +9,19 @@ export const loginValidation = [
 export const registerValidation = [
     body('email', 'Email format is incorrect').isEmail(),
     body('password', 'Password must have minimum 5 symbols').isLength({min: 5 }),
-    body('fullName', 'Name must have minimum 3 symbols').isLength({min: 3}),
-    body('avatarUrl', 'Incorrect format of URL').optional().isURL(),
+   
 ]
 
-export const postCreateValidation = [
-    body('title', 'Enter article title').isLength({min: 3}).isString(),
-    body('text', 'Enter article text').isLength({min: 10 }).isString(),
-    body('tags', 'Invalid tag format (Specify an array).').optional().isString(),
+export const employeeCreateValidation = [
     body('imageUrl', 'Incorrect format of URL').optional().isString(),
+    body('firstName', 'Minimal amount of symbols is 3').isLength({min: 3}).isString(),
+    body('lastName', 'Minimal amount of symbols is 3').isLength({min: 3 }).isString(),
+    body('email', 'Email format is incorrect').isEmail(),
+    body('phone', 'Phone format is incorrect').optional().isMobilePhone(),
+    body('birthday', 'Date format is incorrect').isDate(),
+    body('startday', 'Date format is incorrect').isDate(),
+    body('street', 'Minimal amount of symbols is 3').optional().isLength({min: 3}),
+    body('city', 'Minimal amount of symbols is 3').optional().isLength({min: 3}),
+    body('zipcode', 'Minimal contity of symbols is 4').optional().isLength({min: 4}),
+    
 ]

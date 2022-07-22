@@ -2,9 +2,10 @@ import express from 'express';
 // библиотека генерации токена
 import mongoose from 'mongoose'
 import multer from 'multer'
-import {registerValidation, loginValidation, postCreateValidation} from './validations.js'
+import cors from 'cors'
+import {registerValidation, loginValidation, employeeCreateValidation} from './validations.js'
 
-import {UserController, PostController} from './controllers/index.js'
+import {UserController, EmployeeController} from './controllers/index.js'
 
 import {handleValidationErrors, checkAuth} from './utils/index.js'
 
@@ -29,6 +30,7 @@ const upload = multer({storage})
 
 // чтобы экспресс понимал запросы в формате json
 app.use(express.json())
+app.use(cors())
 // экспресс ищет в папке картинок загруженную картинку и создает роут
 app.use('/uploads', express.static('uploads'))
 
@@ -42,13 +44,13 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) =>{
     })
 })
 
-app.get('/posts', PostController.getAll)
-app.get('/posts/:id', PostController.getOne)
-app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)
-app.delete('/posts/:id', checkAuth, PostController.remove)
-app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update)
+app.get('/employees', EmployeeController.getAll)
+app.get('/employees/:id', EmployeeController.getOne)
+app.post('/employees', checkAuth, employeeCreateValidation, handleValidationErrors, EmployeeController.create)
+app.delete('/employees/:id', checkAuth, EmployeeController.remove)
+app.patch('/employees/:id', checkAuth, employeeCreateValidation, handleValidationErrors, EmployeeController.update)
 
-app.listen(4444, (err)=>{
+app.listen(4000, (err)=>{
     if(err){
         console.log(err)
     }

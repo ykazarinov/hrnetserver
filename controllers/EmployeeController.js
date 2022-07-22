@@ -1,9 +1,9 @@
-import PostModel from '../models/Post.js'
+import EmployeeModel from '../models/Employee.js'
 
 export const getAll = async (req, res) => {
     try{
-        const posts = await PostModel.find().populate('user').exec()
-        res.json(posts)
+        const employees = await EmployeeModel.find().populate('user').exec()
+        res.json(employees)
     }
     catch(err){
         console.log(err)
@@ -15,11 +15,11 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try{
-        const postId = req.params.id
+        const employeeId = req.params.id
        
-        PostModel.findOneAndUpdate({
+        EmployeeModel.findOneAndUpdate({
             
-            _id: postId
+            _id: employeeId
             
         },{
             $inc: {viewsCount: 1}
@@ -53,9 +53,9 @@ export const getOne = async (req, res) => {
 
 export const remove = async (req, res) => {
     try{
-        const postId = req.params.id
-        PostModel.findOneAndDelete({
-            _id: postId
+        const employeeId = req.params.id
+        EmployeeModel.findOneAndDelete({
+            _id: employeeId
         },
         (err,doc)=>{
             if(err){
@@ -86,17 +86,23 @@ export const remove = async (req, res) => {
 //====================
 export const create = async (req, res) => {
     try {
-        const doc = new PostModel({
-            title: req.body.title,
-            text: req.body.text,
+        const doc = new EmployeeModel({
             imageUrl: req.body.imageUrl,
-            tags: req.body.tags,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phone: req.body.phone,
+            birthday: req.body.birthday,
+            startday: req.body.startday,
+            street: req.body.street,
+            city: req.body.city,
+            zipcode: req.body.zipcode,
             user: req.userId,
         })
 
-        const post = await doc.save()
+        const employee = await doc.save()
 
-        res.json(post)
+        res.json(employee)
     }
     catch(err){
         console.log(err)
@@ -108,15 +114,22 @@ export const create = async (req, res) => {
 
 export const update = async (req, res) => {
     try{
-        const postId = req.params.id
-        await PostModel.updateOne({
-            _id: postId
+        const employeeId = req.params.id
+        await EmployeeModel.updateOne({
+            _id: employeeId
         },{
-            title: req.body.title,
-            text: req.body.text,
             imageUrl: req.body.imageUrl,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phone: req.body.phone,
+            birthday: req.body.birthday,
+            startday: req.body.startday,
+            street: req.body.street,
+            city: req.body.city,
+            zipcode: req.body.zipcode,
             user: req.userId,
-            tags: req.body.tags,
+            
         })
         res.json({
             success: true 
