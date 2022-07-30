@@ -2,7 +2,7 @@ import EmployeeModel from '../models/Employee.js'
 
 export const getAll = async (req, res) => {
     try{
-        const employees = await EmployeeModel.find().populate('user').exec()
+        const employees = await EmployeeModel.find().populate('user').populate('state').populate('department').exec()
         res.json(employees)
     }
     catch(err){
@@ -21,10 +21,6 @@ export const getOne = async (req, res) => {
             
             _id: employeeId
             
-        },{
-            $inc: {viewsCount: 1}
-        },{
-            returnDocument: 'after'
         },
         (err, doc) =>{
             if(err){
@@ -87,7 +83,7 @@ export const remove = async (req, res) => {
 export const create = async (req, res) => {
     try {
         const doc = new EmployeeModel({
-            imageUrl: req.body.imageUrl,
+            photo: req.body.photo,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
@@ -96,7 +92,9 @@ export const create = async (req, res) => {
             startday: req.body.startday,
             street: req.body.street,
             city: req.body.city,
+            state: req.body.state,
             zipcode: req.body.zipcode,
+            department: req.body.department,
             user: req.userId,
         })
 
@@ -107,7 +105,7 @@ export const create = async (req, res) => {
     catch(err){
         console.log(err)
         res.status(500).json({
-            message: 'Failed to create article',
+            message: 'Failed to create employee',
         })
     }
 }
@@ -118,7 +116,7 @@ export const update = async (req, res) => {
         await EmployeeModel.updateOne({
             _id: employeeId
         },{
-            imageUrl: req.body.imageUrl,
+            photo: req.body.photo,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
@@ -127,8 +125,10 @@ export const update = async (req, res) => {
             startday: req.body.startday,
             street: req.body.street,
             city: req.body.city,
+            state: req.stateId,
             zipcode: req.body.zipcode,
             user: req.userId,
+            department: req.body.department,
             
         })
         res.json({

@@ -3,9 +3,9 @@ import express from 'express';
 import mongoose from 'mongoose'
 import multer from 'multer'
 import cors from 'cors'
-import {registerValidation, loginValidation, employeeCreateValidation} from './validations.js'
+import {registerValidation, loginValidation, employeeCreateValidation, stateCreateValidation, departmentCreateValidation} from './validations.js'
 
-import {UserController, EmployeeController} from './controllers/index.js'
+import {UserController, EmployeeController, StateController, DepartmentController} from './controllers/index.js'
 
 import {handleValidationErrors, checkAuth} from './utils/index.js'
 
@@ -49,6 +49,18 @@ app.get('/employees/:id', EmployeeController.getOne)
 app.post('/employees', checkAuth, employeeCreateValidation, handleValidationErrors, EmployeeController.create)
 app.delete('/employees/:id', checkAuth, EmployeeController.remove)
 app.patch('/employees/:id', checkAuth, employeeCreateValidation, handleValidationErrors, EmployeeController.update)
+
+app.get('/states', StateController.getAll)
+app.get('/states/:id', StateController.getOne)
+app.post('/states', checkAuth, stateCreateValidation, handleValidationErrors, StateController.create)
+app.delete('/states/:id', checkAuth, StateController.remove)
+app.patch('/states/:id', checkAuth, stateCreateValidation, handleValidationErrors, StateController.update)
+
+app.get('/departments', DepartmentController.getAll)
+app.get('/departments/:id', DepartmentController.getOne)
+app.post('/departments', checkAuth, departmentCreateValidation, handleValidationErrors, DepartmentController.create)
+app.delete('/departments/:id', checkAuth, DepartmentController.remove)
+app.patch('/departments/:id', checkAuth, departmentCreateValidation, handleValidationErrors, DepartmentController.update)
 
 app.listen(4000, (err)=>{
     if(err){

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const EmployeeSchema = mongoose.Schema({
-    imageUrl: String,
+    photo: String,
     firstName: {
         type: String,
         required: true,
@@ -15,7 +15,6 @@ const EmployeeSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-
     },
 
     phone:  String,
@@ -30,15 +29,17 @@ const EmployeeSchema = mongoose.Schema({
     },
     street: String,
     city: String,
-    // state: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'State',
-    // },
+    state: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'State',
+
+
+    }],
     zipcode: Number,
-    // department: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Department',
-    // },
+    department: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Department',
+    }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
