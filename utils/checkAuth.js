@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import 'dotenv/config'
 
 // Авторизован я или нет
 
@@ -7,7 +8,7 @@ export default (req, res, next) => {
 
     if(token){
         try{
-            const decoded = jwt.verify(token, 'secret123')
+            const decoded = jwt.verify(token, process.env.TOKEN_CODE)
             req.userId = decoded._id
             next()
         }
