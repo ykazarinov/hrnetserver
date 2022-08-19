@@ -84,6 +84,7 @@ export const create = async (req, res) => {
     try {
         const doc = new StateModel({
             stateName: req.body.stateName,
+            stateAbbreviation: req.body.stateAbbreviation,
             user: req.userId,
         })
 

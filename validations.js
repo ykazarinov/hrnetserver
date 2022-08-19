@@ -30,6 +30,7 @@ export const employeeCreateValidation = [
 
 export const stateCreateValidation = [
     body('stateName', 'Minimal amount of symbols is 3').isLength({min: 3}).isString(),
+    body('stateAbbreviation', 'It must by string').optional({checkFalsy: true}).isString(),
 ]
 
 export const departmentCreateValidation = [

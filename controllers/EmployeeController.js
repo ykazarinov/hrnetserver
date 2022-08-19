@@ -1,4 +1,6 @@
 import EmployeeModel from '../models/Employee.js'
+import { unlink } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 
 export const getAll = async (req, res) => {
     try{
@@ -65,10 +67,19 @@ export const remove = async (req, res) => {
                     message: 'Article not found'
                 })
             }
+            const path = `./uploads/` + doc.photo.split('/').pop()
+            
+            if (doc.photo !=='' && existsSync(path)){
+                unlink(path)
+            }
+            
             res.json({
                 success: true
             })
         })
+
+       
+       
        
     }
     catch(err){
