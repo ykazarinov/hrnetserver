@@ -6,9 +6,11 @@ import multer from 'multer'
 import cors from 'cors'
 import {registerValidation, loginValidation, employeeCreateValidation, stateCreateValidation, departmentCreateValidation} from './validations.js'
 
-import {UserController, EmployeeController, StateController, DepartmentController} from './controllers/index.js'
+import {UserController, EmployeeController, StateController, DepartmentController, ImagesController} from './controllers/index.js'
 
 import {handleValidationErrors, checkAuth} from './utils/index.js'
+
+import {isFileCorrect} from './utils/index.js'
 
 // require('dotenv').config()
 mongoose.connect(
@@ -41,7 +43,7 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.post('/auth/register', handleValidationErrors, registerValidation, UserController.register)
 app.get('/auth/me', checkAuth, UserController.getMe)
 
-app.post('/upload', checkAuth, upload.single('image'), (req, res) =>{
+app.post('/upload', checkAuth,  upload.single('image'), isFileCorrect, (req, res) =>{
     res.json({
         url: `/uploads/${req.file.originalname}`,
     })
@@ -64,6 +66,8 @@ app.get('/departments/:id', DepartmentController.getOne)
 app.post('/departments', checkAuth, departmentCreateValidation, handleValidationErrors, DepartmentController.create)
 app.delete('/departments/:id', checkAuth, DepartmentController.remove)
 app.patch('/departments/:id', checkAuth, departmentCreateValidation, handleValidationErrors, DepartmentController.update)
+
+app.delete('/uploads/:imageName', checkAuth, ImagesController.remove)
 
 app.listen(4000, (err)=>{
     if(err){
