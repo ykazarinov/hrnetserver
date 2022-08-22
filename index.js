@@ -8,7 +8,7 @@ import {registerValidation, loginValidation, employeeCreateValidation, stateCrea
 
 import {UserController, EmployeeController, StateController, DepartmentController, ImagesController} from './controllers/index.js'
 
-import {handleValidationErrors, checkAuth} from './utils/index.js'
+import {handleValidationErrors, checkAuth, cacheCreator} from './utils/index.js'
 
 import {isFileCorrect} from './utils/index.js'
 
@@ -38,6 +38,8 @@ app.use(express.json())
 app.use(cors())
 // экспресс ищет в папке картинок загруженную картинку и создает роут
 app.use('/uploads', express.static('uploads'))
+
+app.use(cacheCreator)
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/register', handleValidationErrors, registerValidation, UserController.register)
