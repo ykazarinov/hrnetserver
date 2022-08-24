@@ -136,7 +136,7 @@ export const update = async (req, res) => {
             startday: req.body.startday,
             street: req.body.street,
             city: req.body.city,
-            state: req.stateId,
+            state: req.body.state,
             zipcode: req.body.zipcode,
             user: req.userId,
             department: req.body.department,
