@@ -33,6 +33,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
+app.set('environment', process.env.NODE_ENV); 
+
 // чтобы экспресс понимал запросы в формате json
 app.use(express.json())
 app.use(cors())
