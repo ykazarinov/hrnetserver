@@ -1,5 +1,5 @@
 import express from 'express';
-import 'dotenv/config'
+// import 'dotenv/config'
 // библиотека генерации токена
 import mongoose from 'mongoose'
 import multer from 'multer'
@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-app.set('environment', process.env.NODE_ENV); 
+app.set('environment', 'development'); 
 
 // чтобы экспресс понимал запросы в формате json
 app.use(express.json())
