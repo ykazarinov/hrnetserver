@@ -15,11 +15,9 @@ import {isFileCorrect} from './utils/index.js'
 // require('dotenv').config()
 mongoose.connect(
     process.env.DB_ACCESS
-    // 'mongodb+srv://admin:GyccV8HSloqpIU3z@cluster0.hgxapfo.mongodb.net/hrnet?retryWrites=true&w=majority',
 ).then(()=>{console.log('DB ok')})
 .catch((err)=>{console.log('DB error: ', err)})
 
-// экспресс приложение
 const app = express();
 
 const storage = multer.diskStorage({
@@ -73,7 +71,7 @@ app.patch('/departments/:id', checkAuth, departmentCreateValidation, handleValid
 
 app.delete('/uploads/:imageName', checkAuth, ImagesController.remove)
 
-app.listen(4000, (err)=>{
+app.listen(process.env.PORT || 4000 , (err)=>{
     if(err){
         console.log(err)
     }
