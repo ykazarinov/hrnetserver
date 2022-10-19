@@ -15,6 +15,8 @@ export const register = async (req, res) => {
             email: req.body.email,
             passwordHash: hash
         })
+
+        
         
         const user = await doc.save() // сохраненный юзер в базе
 
