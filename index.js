@@ -41,7 +41,7 @@ app.use('/uploads', express.static('uploads'))
 
 app.use(cacheCreator)
 
-app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
+app.post('/auth/login',  UserController.login)
 app.post('/auth/register', handleValidationErrors, registerValidation, UserController.register)
 app.get('/auth/me', checkAuth, UserController.getMe)
 
