@@ -8,7 +8,7 @@ import {registerValidation, loginValidation, employeeCreateValidation, stateCrea
 
 import {UserController, EmployeeController, StateController, DepartmentController, ImagesController} from './controllers/index.js'
 
-import {handleValidationErrors,  cacheCreator} from './utils/index.js'
+import {handleValidationErrors, checkAuth, cacheCreator} from './utils/index.js'
 
 import {isFileCorrect} from './utils/index.js'
 
@@ -43,9 +43,9 @@ app.use(cacheCreator)
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/register', handleValidationErrors, registerValidation, UserController.register)
-app.get('/auth/me',  UserController.getMe)
+app.get('/auth/me', checkAuth, UserController.getMe)
 
-app.post('/upload',   upload.single('image'), isFileCorrect, (req, res) =>{
+app.post('/upload', checkAuth,  upload.single('image'), isFileCorrect, (req, res) =>{
     res.json({
         url: `/uploads/${req.file.originalname}`,
     })
@@ -53,23 +53,23 @@ app.post('/upload',   upload.single('image'), isFileCorrect, (req, res) =>{
 
 app.get('/employees', EmployeeController.getAll)
 app.get('/employees/:id', EmployeeController.getOne)
-app.post('/employees',  employeeCreateValidation, handleValidationErrors, EmployeeController.create)
-app.delete('/employees/:id',  EmployeeController.remove)
-app.patch('/employees/:id',  employeeCreateValidation, handleValidationErrors, EmployeeController.update)
+app.post('/employees', checkAuth, employeeCreateValidation, handleValidationErrors, EmployeeController.create)
+app.delete('/employees/:id', checkAuth, EmployeeController.remove)
+app.patch('/employees/:id', checkAuth, employeeCreateValidation, handleValidationErrors, EmployeeController.update)
 
 app.get('/states', StateController.getAll)
 app.get('/states/:id', StateController.getOne)
-app.post('/states',  stateCreateValidation, handleValidationErrors, StateController.create)
-app.delete('/states/:id',  StateController.remove)
-app.patch('/states/:id',  stateCreateValidation, handleValidationErrors, StateController.update)
+app.post('/states', checkAuth, stateCreateValidation, handleValidationErrors, StateController.create)
+app.delete('/states/:id', checkAuth, StateController.remove)
+app.patch('/states/:id', checkAuth, stateCreateValidation, handleValidationErrors, StateController.update)
 
 app.get('/departments', DepartmentController.getAll)
 app.get('/departments/:id', DepartmentController.getOne)
-app.post('/departments',  departmentCreateValidation, handleValidationErrors, DepartmentController.create)
-app.delete('/departments/:id',  DepartmentController.remove)
-app.patch('/departments/:id',  departmentCreateValidation, handleValidationErrors, DepartmentController.update)
+app.post('/departments', checkAuth, departmentCreateValidation, handleValidationErrors, DepartmentController.create)
+app.delete('/departments/:id', checkAuth, DepartmentController.remove)
+app.patch('/departments/:id', checkAuth, departmentCreateValidation, handleValidationErrors, DepartmentController.update)
 
-app.delete('/uploads/:imageName',  ImagesController.remove)
+app.delete('/uploads/:imageName', checkAuth, ImagesController.remove)
 
 app.listen(process.env.PORT || 4000 , (err)=>{
     if(err){
