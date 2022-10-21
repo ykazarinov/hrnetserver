@@ -6,10 +6,10 @@ import 'dotenv/config'
 export default (req, res, next) => {
     const token = (req.headers.authorization || '').replace(/Bearer\s?/, '')
 
-    if (req.Headers.AllKeys.Contains("Origin") && req.HttpMethod == "OPTIONS")
-    {
-        res.Flush();
-    }
+    // if (req.Headers.AllKeys.Contains("Origin") && req.HttpMethod == "OPTIONS")
+    // {
+    //     res.Flush();
+    // }
 
     if(token){
         try{

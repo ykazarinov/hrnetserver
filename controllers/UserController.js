@@ -56,18 +56,18 @@ export const login = async (req, res) => {
         if(!isValidPass){
             return res.status(400).json({message: 'Wrong login or password'})
         }
-        const token = jwt.sign({
-            _id: user._id
-        }, process.env.TOKEN_CODE, {
-            expiresIn: '30d'
-        })
+        // const token = jwt.sign({
+        //     _id: user._id
+        // }, process.env.TOKEN_CODE, {
+        //     expiresIn: '30d'
+        // })
 
-        const {passwordHash, ...userData} = user._doc
+        // const {passwordHash, ...userData} = user._doc
         
-        res.json({
-            ...userData,
-            token,
-})
+        // res.json({
+        //     ...userData,
+        //     token,
+        // })
     }
     catch(err){
         console.log(err)
