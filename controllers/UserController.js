@@ -43,10 +43,10 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-   const user = await UserModel.findOne({email: req.body.email})
+   
     try{
         
-       
+       const user = await UserModel.findOne({email: req.body.email})
         
 
         if(!user){
@@ -77,7 +77,7 @@ export const login = async (req, res) => {
        
         res.status(500).json({
             message: 'There is a problem with authorisation',
-            user: user,
+            error: err,
             // isValidPass: isValidPass,
             // token: token,
         })
