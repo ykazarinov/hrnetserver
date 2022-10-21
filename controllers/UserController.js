@@ -74,10 +74,10 @@ export const login = async (req, res) => {
     }
     catch(err){
 
-       
+       console.log(err)
         res.status(500).json({
-            message: 'There is a problem with authorisation',
-            error: err,
+            message: err,
+            
             // isValidPass: isValidPass,
             // token: token,
         })
