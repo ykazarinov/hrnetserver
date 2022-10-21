@@ -14,6 +14,7 @@ import {isFileCorrect} from './utils/index.js'
 
 // require('dotenv').config()
 mongoose.connect(
+    //test
     // process.env.DB_ACCESS
     'mongodb+srv://admin:GyccV8HSloqpIU3z@cluster0.hgxapfo.mongodb.net/hrnet?retryWrites=true&w=majority'
 ).then(()=>{console.log('DB ok')})
