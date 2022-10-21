@@ -43,7 +43,12 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    // try{
+    try{
+
+        if (req.Headers.AllKeys.Contains("Origin") && req.HttpMethod == "OPTIONS")
+        {
+            res.Flush();
+        }
         const user = await UserModel.findOne({email: req.body.email})
 
         if(!user){
@@ -65,13 +70,13 @@ export const login = async (req, res) => {
             ...userData,
             token,
 })
-    // }
-    // catch(err){
-    //     console.log(err)
-    //     res.status(500).json({
-    //         message: 'There is a problem with authorisation',
-    //     })
-    // }
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({
+            message: 'There is a problem with authorisation',
+        })
+    }
 }
 
 export const getMe = async (req, res) => {
