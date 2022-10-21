@@ -43,11 +43,11 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-   
+   const user = await UserModel.findOne({email: req.body.email})
     try{
-        console.log('test')
+        
        
-        const user = await UserModel.findOne({email: req.body.email})
+        
 
         if(!user){
             return res.status(404).json({message: 'User does not exist'})
@@ -73,22 +73,13 @@ export const login = async (req, res) => {
         })
     }
     catch(err){
-        const user = await UserModel.findOne({email: req.body.email})
-        const isValidPass  = await bcrypt.compare(req.body.password, user._doc.passwordHash)
-        const token = jwt.sign({
-            _id: user._id
-        }, 
-        // process.env.TOKEN_CODE, 
-        'secret123',
-        {
-            expiresIn: '30d'
-        })
-        console.log(err)
+
+       
         res.status(500).json({
             message: 'There is a problem with authorisation',
             user: user,
-            isValidPass: isValidPass,
-            token: token,
+            // isValidPass: isValidPass,
+            // token: token,
         })
     }
 }
