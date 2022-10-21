@@ -49,13 +49,13 @@ export const login = async (req, res) => {
        
         const user = await UserModel.findOne({email: req.body.email})
 
-        if(!user){
-            return res.status(404).json({message: 'User does not exist'})
-        }
-        const isValidPass  = await bcrypt.compare(req.body.password, user._doc.passwordHash)
-        if(!isValidPass){
-            return res.status(400).json({message: 'Wrong login or password'})
-        }
+        // if(!user){
+        //     return res.status(404).json({message: 'User does not exist'})
+        // }
+        // const isValidPass  = await bcrypt.compare(req.body.password, user._doc.passwordHash)
+        // if(!isValidPass){
+        //     return res.status(400).json({message: 'Wrong login or password'})
+        // }
         // const token = jwt.sign({
         //     _id: user._id
         // }, process.env.TOKEN_CODE, {
