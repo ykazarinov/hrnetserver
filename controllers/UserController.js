@@ -75,8 +75,9 @@ export const login = async (req, res) => {
     catch(err){
 
        console.log(err)
+       const tt = await req
         res.status(500).json({
-            message: err,
+            message: tt,
             
             // isValidPass: isValidPass,
             // token: token,
