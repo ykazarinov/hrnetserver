@@ -67,7 +67,7 @@ export const login = async (req, res) => {
 
         const {passwordHash, ...userData} = user._doc
         
-        res.json({
+        res.form({
             ...userData,
             token,
         })
