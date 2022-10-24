@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose'
 import multer from 'multer'
 import cors from 'cors'
+import fs from 'fs'
 import {registerValidation, loginValidation, employeeCreateValidation, stateCreateValidation, departmentCreateValidation} from './validations.js'
 
 import {UserController, EmployeeController, StateController, DepartmentController, ImagesController} from './controllers/index.js'
@@ -24,6 +25,9 @@ const app = express();
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) =>{
+        if(!fs.existsSync('uploads')){
+            fs.mkdirSync('uploads')
+        }
         cb(null, 'uploads');
     },
     filename(_, file, cb){
