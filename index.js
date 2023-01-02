@@ -1,5 +1,5 @@
 import express from 'express';
-// import 'dotenv/config'
+
 // библиотека генерации токена
 import mongoose from 'mongoose'
 import multer from 'multer'
@@ -13,7 +13,7 @@ import {handleValidationErrors, checkAuth, cacheCreator} from './utils/index.js'
 
 import {isFileCorrect} from './utils/index.js'
 
-// require('dotenv').config()
+
 mongoose.connect(
     //test
     // process.env.DB_ACCESS
