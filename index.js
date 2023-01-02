@@ -77,7 +77,7 @@ app.patch('/departments/:id', checkAuth, departmentCreateValidation, handleValid
 
 app.delete('/uploads/:imageName', checkAuth, ImagesController.remove)
 
-app.listen(3000 , (err)=>{
+app.listen(4000 , (err)=>{
     if(err){
         console.log(err)
     }
