@@ -1,5 +1,5 @@
 import express from 'express';
-
+import 'dotenv/config';
 // библиотека генерации токена
 import mongoose from 'mongoose'
 import multer from 'multer'
@@ -16,8 +16,8 @@ import {isFileCorrect} from './utils/index.js'
 
 mongoose.connect(
     //test
-    // process.env.DB_ACCESS
-    'mongodb+srv://admin:GyccV8HSloqpIU3z@cluster0.hgxapfo.mongodb.net/hrnet?retryWrites=true&w=majority'
+    process.env.DB_ACCESS
+    // 'mongodb+srv://admin:GyccV8HSloqpIU3z@cluster0.hgxapfo.mongodb.net/hrnet?retryWrites=true&w=majority'
 ).then(()=>{console.log('DB ok')})
 .catch((err)=>{console.log('DB error: ', err)})
 
